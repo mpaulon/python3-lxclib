@@ -244,9 +244,7 @@ class Container:
     @property
     def container_folder(self):
         """return path to folder containing rootfs and config of the container"""
-        if os.geteuid() != 0:
-            return Path.home() / Path(".local/share/lxc") / self.name
-        return Path("/usr/share/lxc") / self.name
+        return Path.home() / Path(".local/share/lxc") / self.name
 
     @property
     def config_file(self):

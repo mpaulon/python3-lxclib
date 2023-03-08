@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "python3-lxclib"
+version = "0.1.0"
+description = "Small wrapper above lxc and systemd-run for unprivileged lxc scontainers"
+license = "MIT"
+
+authors = ["Michaël PAULON <michael@paulon.org>"]
+
+packages = [{ include = "lxclib" }]
+
+include = []
+
+[tool.poetry.scripts]
+lxc-manager = "lxclib.cli.core:run"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.urls]
+repository = "https://github.com/mpaulon/python3-lxclib"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

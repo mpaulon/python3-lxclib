@@ -4,7 +4,10 @@ import shlex
 
 import lxclib
 
-import utils
+from . import utils
+
+logger = logging.getLogger(__name__)
+
 
 def list_containers(_args):
     if _args.json:
@@ -22,7 +25,7 @@ def attach_container(_args):
     try:
         container.attach(
             shlex.split(_args.command),
-            bind=not args.no_bind,
+            bind=not _args.no_bind,
             force_run=_args.force_run,
             force=_args.force,
         )
@@ -45,9 +48,11 @@ def stop_container(_args):
     except lxclib.Container.SystemdRunError as err:
         logger.critical("Command %s failed with %s", err.pretty_command, err.output)
 
+
 def restart_container(_args):
     stop_container(_args)
     start_container(_args)
+
 
 def destroy_container(_args):
     container = lxclib.Container(_args.name)
@@ -85,9 +90,8 @@ def config_container(_args):
         return utils.open_in_editor(container.config_file.absolute())
 
 
-if __name__ == "__main__":
+def run():
     logging.basicConfig()
-    logger = logging.getLogger()
 
     parser = argparse.ArgumentParser()
     parser.set_defaults(func=parser.print_help)
